@@ -31,7 +31,7 @@ def graph_response(ctx: Context, actor, *args, **kwargs) -> Message:
     # response = requests.get(url=url, params=request).json()
 
     # return Message(text=response[0])
-    return 'graph'
+    return Message(text='graph')
 
 
 script = {
