@@ -21,14 +21,14 @@ def generated_response(ctx: Context, actor, *args, **kwargs) -> Message:
     return Message(text='gen')
 
 def graph_response(ctx: Context, actor, *args, **kwargs) -> Message:
-    # url = 'http://127.0.0.1:8001/'
-    # text = ctx.last_request.text
-    # request = {
-    #     'msg': text
-    # }
-    # response = requests.get(url=url, params=request).json()
+    url = 'http://graph:8200/'
+    text = ctx.last_request.text
+    request = {
+        'msg': text
+    }
+    response = requests.get(url=url, params=request).json()
 
-    # return Message(text=response[0])
+    return Message(text=response[0])
     return Message(text='graph')
 
 
