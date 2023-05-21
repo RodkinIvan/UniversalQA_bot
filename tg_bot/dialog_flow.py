@@ -11,14 +11,15 @@ from dff.script.core.message import Button
 import requests
 
 def generated_response(ctx: Context, actor, *args, **kwargs) -> Message:
-    # url = 'http://127.0.0.1:8141/'
-    # text = ctx.last_request.text
-    # request = {
-    #     'questions': [text]
-    # }
-    # response, _ = requests.get(url, json=request).json()
-    # return Message(text=response[0])
-    return Message(text='gen')
+    if ctx.validation:
+        return Message(text='gen')
+    url = 'http://odqa:8141/'
+    text = ctx.last_request.text
+    request = {
+        'questions': [text]
+    }
+    response, _ = requests.get(url, json=request).json()
+    return Message(text=response[0])
 
 def graph_response(ctx: Context, actor, *args, **kwargs) -> Message:
     if ctx.validation:
