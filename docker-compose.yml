@@ -11,7 +11,7 @@ services:
       - graph
       - odqa
   graph:
-    image: kirill456z/graph-model:v2
+    image: kirill456z/graph-model:v3
     ports:
       - "8001:5000"
     command: flask run

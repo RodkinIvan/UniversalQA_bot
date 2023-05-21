@@ -30,8 +30,11 @@ def graph_response(ctx: Context, actor, *args, **kwargs) -> Message:
         'msg': text
     }
     response = requests.get(url=url, params=request).json()
-
-    return Message(text=response[0])
+    text = response['response'][0]
+    is_terminated = response['is_terminated']
+    if is_terminated:
+        text += '\n\nEnd of session. Type /start to begin a new one'
+    return Message(text=text)
 
 
 script = {
