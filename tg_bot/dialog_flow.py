@@ -32,6 +32,10 @@ def graph_response(ctx: Context, actor, *args, **kwargs) -> Message:
     response = requests.get(url=url, params=request).json()
     text = response['response'][0]
     is_terminated = response['is_terminated']
+    slots = response['slots']
+    if len(slots) != 0:
+        text += '\n\nDetected slots:\n'
+        text += str(slots)
     if is_terminated:
         text += '\n\nEnd of session. Type /start to begin a new one'
     return Message(text=text)
