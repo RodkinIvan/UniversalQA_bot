@@ -1,0 +1,29 @@
+services:
+  uniqa:
+    image: rodkin/uniqa_env
+    environment:
+        - "TG_BOT_TOKEN=${TG_BOT_TOKEN}"
+    build: .
+    command: "bash run.sh"
+    ports:
+      - "8200:8200"
+    depends_on:
+      - graph
+      - odqa
+  graph:
+    image: kirill456z/graph-model:v2
+    ports:
+      - "8001:5000"
+    command: flask run
+  odqa:
+    image: rodkin/odqa_env
+    command: "bash run.sh"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+      - 8141:8141
