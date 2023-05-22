@@ -3,7 +3,6 @@ services:
     image: rodkin/uniqa_env
     environment:
         - "TG_BOT_TOKEN=${TG_BOT_TOKEN}"
-    build: .
     command: "bash run.sh"
     ports:
       - "8200:8200"
@@ -27,3 +26,7 @@ services:
               capabilities: [gpu]
     ports:
       - 8141:8141
+  response_refinement:
+    image: natriistorm/response_refiner
+    ports:
+          - "8030:8030"
