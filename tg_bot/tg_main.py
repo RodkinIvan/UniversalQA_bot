@@ -6,8 +6,6 @@ from dff.pipeline import Pipeline
 from dff.script import GLOBAL, TRANSITIONS, RESPONSE, Context, Message
 from dff.utils.testing.common import is_interactive_mode
 from dialog_flow import script
-from post_services import response_refiner
-
 
 interface = PollingTelegramInterface(token=os.getenv("TG_BOT_TOKEN", ""))
 
@@ -16,7 +14,6 @@ pipeline = Pipeline.from_script(
     start_label=("greeting_flow", "start_node"),
     fallback_label=("greeting_flow", "fallback_node"),
     messenger_interface=interface,  # The interface can be passed as a pipeline argument.
-    post_services=[response_refiner,]
 )
 
 

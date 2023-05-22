@@ -19,7 +19,11 @@ def generated_response(ctx: Context, actor, *args, **kwargs) -> Message:
         'questions': [text]
     }
     response, _ = requests.get(url, json=request).json()
-    return Message(text=response[0])
+
+    cur_response = response[0]
+    response = requests.post(url='http://response_refinement:8030/refine', json={'question': text, 'response': cur_response, })
+    model_response = response.json()['refined_resp']
+    return Message(text=model_response)
 
 def graph_response(ctx: Context, actor, *args, **kwargs) -> Message:
     if ctx.validation:
