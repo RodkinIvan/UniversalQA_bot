@@ -3,8 +3,8 @@ import requests
 
 
 def response_refiner(ctx: Context):
-    last_request = ctx.last_request
-    last_response = ctx.last_response
+    last_request = ctx.last_request.text
+    last_response = ctx.last_response.text
     if last_response is None:
         # nothing to refine
         return
