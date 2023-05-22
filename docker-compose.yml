@@ -10,10 +10,18 @@ services:
       - graph
       - odqa
   graph:
-    image: kirill456z/graph-model:v4
+    image: kirill456z/graph-model:cuda
     ports:
       - "8001:5000"
     command: flask run
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['1']
+              capabilities: [gpu]
+
   odqa:
     image: rodkin/odqa_env
     command: "bash run.sh"
@@ -22,7 +30,7 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
+              device_ids: ['2']
               capabilities: [gpu]
     ports:
       - 8141:8141
